@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Grid, Button, Typography } from '@mui/material';
+
+import { getStatLeaderClass } from 'src/apis/api.stats';
 
 import RadialButton from '../RadialButton';
 
 function Average() {
+    const rowData = [
+        { rank: 1, name: 'Large Testing Class', distanceInUnits: 9675.86 }
+    ];
+    const programId = localStorage.getItem('programId');
+    const [classes, setClasses] = useState([rowData]);
+    const [totalMile, setTotalMile] = useState(0);
+    const [titleValue, setTitleValue] = useState('');
+    const [mileValue, setMileValue] = useState(0);
+    const handleTagClick = (tag) => {
+        const selectedClass = classes.find(row => row.name === tag);
+        if (selectedClass === undefined) {
+            setMileValue('0');
+        } else if (selectedClass) {
+            setMileValue(selectedClass.distanceInUnits);
+        }
+        setTitleValue(tag);
+    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let total = 0;
+                const res = await getStatLeaderClass(`https://api.runningkiddos.com/api/Groups/getLeaderboard?programId=${programId}&groupType=Class`);
+                setClasses(res.data);
+                classes.forEach((row) => {
+                    total += row.distanceInUnits;
+                });
+                setTotalMile(total);
+            } catch (error) {
+                console.log('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    }, [programId, classes]);
     return (
         <div>
             <Grid container className="titlebar" lg={12} sm={12} sx={{ padding: '15px 0 0 14px' }}>
@@ -33,43 +68,20 @@ function Average() {
                     </div>
                 </Grid>
             </Grid>
-            <div style={{display: 'flex', marginLeft: '70%'}}> 
-                <Typography sx={{fontSize: '23pt'}}>234.54</Typography>
-                <Typography sx={{margin: '11.5% 0 0 5%'}}>mi</Typography>
+            <div style={{ display: 'flex', marginLeft: '70%' }}>
+                <Typography sx={{ fontSize: '23pt' }}>{mileValue}mi</Typography>
             </div>
-            <Grid container lg={12} md={12} sm={12} xl={12} xs={12} style={{ justifyContent: 'space-between', display: 'flex', margin: '5% 0 0 -9%' }}>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <div><RadialButton width={180} series={36} /></div>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <div><RadialButton width={180} series={26} /></div>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <div><RadialButton width={180} series={41} /></div>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <div><RadialButton width={180} series={16} /></div>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <div><RadialButton width={180} series={12} /></div>
-                </Grid>
-            </Grid>
-            <Grid container lg={12} md={12} sm={12} xl={12} xs={12} style={{ justifyContent: 'space-between', display: 'flex', margin: '-2% 0 0 5%' }}>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <Typography>Large</Typography>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <Typography>Medium</Typography>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <Typography>Small</Typography>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <Typography>XSmall</Typography>
-                </Grid>
-                <Grid lg={2.4} md={2.4} sm={2.4} xl={2.4} xs={2.4}>
-                    <Typography>XLarge</Typography>
-                </Grid>
+            <div style={{ height: '20px' }}>
+                <Typography variant='h6' sx={{ textAlign: 'right' }}>{titleValue}</Typography>
+            </div>
+            <Grid container lg={12} md={12} sm={12} xl={12} xs={12} style={{ margin: '5% 0 0 -8.5%' }}>
+                {classes.map((row) => (
+                    <Grid key={row.name} lg={3} md={3} sm={3} xl={3} xs={3}>
+                        <div role="button" tabIndex={0} onClick={() => handleTagClick(row.name)} onKeyDown={() => handleTagClick(row.name)} style={{ cursor: 'pointer' }}>
+                            <RadialButton series={Math.floor(row.distanceInUnits * 1000 / totalMile) / 10} title='Total' />
+                        </div>
+                    </Grid>
+                ))}
             </Grid>
         </div>
     );

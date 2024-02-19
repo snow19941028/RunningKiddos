@@ -29,6 +29,10 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const userName = localStorage.getItem("username");
+  const userId = localStorage.getItem("userid");
+  const userEmail = localStorage.getItem("useremail");
+
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -39,6 +43,9 @@ export default function AccountPopover() {
     localStorage.setItem("logstatus", false);
     window.location.href = '/login';
     localStorage.setItem("username",'')
+    setOpen(null);
+  };
+  const handleCloseAdmin = () => {
     setOpen(null);
   };
 
@@ -54,7 +61,6 @@ export default function AccountPopover() {
       >
         <Avatar
           src={account.photoURL}
-          alt={account.displayName}
           sx={{
             width: 40,
             height: 40,
@@ -71,13 +77,13 @@ export default function AccountPopover() {
             fontWeight: 'bold',
             color: '#333333',
           }}
-        >&nbsp;&nbsp;&nbsp; Admin &nbsp;&nbsp;&nbsp;</Typography>
+        >&nbsp;&nbsp;&nbsp; {userName} &nbsp;&nbsp;&nbsp;</Typography>
       </Button>
 
       <Popover
         open={!!open}
         anchorEl={open}
-        onClose={handleClose}
+        onClose={handleCloseAdmin}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
@@ -91,10 +97,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {userId}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {userEmail}
           </Typography>
         </Box>
 

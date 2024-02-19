@@ -20,7 +20,7 @@ export function TabMiles() {
   const  [dialogOpen, setDialogOpen]   =   useState(false)
   const  [students, setStudents]       =   useState([rowData])
   const  [selectedRow, setSelectedRow] =   useState([])
-  const  [classData]     =   useState()
+  const  [classData]                   =   useState()
   const  rowsPerPage                   =   10;
   const  startIndex                    =   (page - 1) * rowsPerPage;
   const  endIndex                      =   startIndex + rowsPerPage;
@@ -39,8 +39,19 @@ export function TabMiles() {
         .then(res =>{
 
           const studentlist = res.data.table
-          // const distance = response.data.totals.miles
+          let totalDistance = 0
+          
+          studentlist.map(one => {
+            totalDistance += one.distanceInMiles;
+            console.log("totalDistance :")
+
+          console.log(totalDistance)
+
+            return one;
+          });
           setStudents(studentlist)
+          console.log("totalDistance :")
+          console.log(totalDistance)
          
         })
         .catch(err =>{

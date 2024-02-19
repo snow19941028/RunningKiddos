@@ -33,7 +33,6 @@ export default function Class() {
               .then(res =>{
 
                 setClassData(res.data);
-               // setSelProgramIndex(1)
             
                 
             }).catch(err => {
@@ -56,7 +55,7 @@ export default function Class() {
         };
     
         fetchData();
-      }, [ schoolId]); // Include schoolId in the dependency array
+      }, [schoolId]); // Include schoolId in the dependency array
 
     const handleClassTitleChange = (value) => {
         setClassTitle(classData.filter((row) => row.id === value).at(0).name);
@@ -102,7 +101,7 @@ export default function Class() {
             </div>
             <div style = {{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
                 <ClassTitle title={classTitle} />
-                <TotalDistance distance={16.345} />
+                <TotalDistance totalDistance = {123} />
             </div>
             <CustomTab progID={programId}/>
         </div>

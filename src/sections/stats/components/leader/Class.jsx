@@ -30,7 +30,6 @@ export default function Class() {
       try {
         const res = await getStatLeaderClass(`https://api.runningkiddos.com/api/Groups/getLeaderboard?programId=${programId}&groupType=Class`);
         setRank(res.data);
-        // console.log(res.data)
       } catch (error) {
         console.log('Error fetching data:', error);
       }

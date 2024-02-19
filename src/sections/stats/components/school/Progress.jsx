@@ -8,7 +8,7 @@ import { Grid, Select, MenuItem, Typography, FormControl } from '@mui/material';
 import Graph from '../../Graph';
 
 function Progress() {
-    // const rowData = [
+    // const rowData = [    
     //     { year: 2024, month: 1, day: 19, week: 2, timestamp: '2024-01-19T06:12:32.000Z', distanceInMiles: 122.7, distanceInUnits: 197.47 }
     // ];
 

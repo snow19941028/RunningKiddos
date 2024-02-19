@@ -34,26 +34,18 @@ function Login() {
     axios.post(config.API_URL, logInfo).then((res) => {
       if (res.data.id !== ''){
         window.location.href="/index";
-        console.log(res.data);
         localStorage.setItem("token", res.data.id);
         localStorage.setItem("username", `${res.data.user.firstName  } ${  res.data.user.lastName}`);
         localStorage.setItem("useremail", res.data.user.email);
         localStorage.setItem("userid", res.data.userId);
         localStorage.setItem("logstatus", true);
+        console.log(res.data);
       }
       else {
         alert("Server connect Error!")
       }
     });
   }
-
-  // const registerClick = (e) => 
-  // {
-     
-  //    if(e.target.id === 'register')setRegister(true)
-  //    else setRegister(false)
-  // }
-
   const onChangePass = (e) => {
 
      setPassword(e.target.value); 

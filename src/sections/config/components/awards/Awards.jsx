@@ -23,12 +23,12 @@ export function Awards() {
   ];
 
   // ------Awards------//
-  const [awardsData, setAwardsData] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [awardsData, setAwardsData]       = useState([]);
+  const [anchorEl, setAnchorEl]           = useState(null);
   // const [selectedItemsList, setSelectedItemsList] = useState([]);
   // const [itemsList, setItemList]       =    useState([]);
-  const [certificates, setCertificates] = useState(tempCertificates);
-  const [units, setUnits] = useState(tempUnitData)
+  const [certificates, setCertificates]   = useState(tempCertificates);
+  const [units, setUnits]                 = useState(tempUnitData)
 
 
   const schoolData = JSON.parse(localStorage.getItem('school'));

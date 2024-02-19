@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Box, Button, Typography } from "@mui/material";
 
-function TotalDistance({ distance }) {
+function TotalDistance({totalDistance}) {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginRight:'20px'}}>
             <Button sx={{ backgroundColor: '#F8F8FA', borderRadius: '50%', minWidth: '40px', height: '40px', fontSize: '14px' }}>
@@ -13,13 +13,13 @@ function TotalDistance({ distance }) {
                 Total Distance
             </Typography>
             <Typography sx={{ fontFamily: 'Calibri', fontWeight: 'bold', fontStyle: 'italic', fontSize: '30px' }}>
-                {distance}
+                {totalDistance}
             </Typography>
         </Box>
     );
 }
 TotalDistance.propTypes = {
-    distance: PropTypes.string
-}
+    totalDistance: PropTypes.number
+};
 
 export default TotalDistance;

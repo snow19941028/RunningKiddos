@@ -13,7 +13,6 @@ export const ReportPage = lazy(() => import('src/pages/report'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 export default function Router() {
-  // Set local storage values
   localStorage.setItem("logStatus", "true");
   const status = localStorage.getItem("logStatus");
 

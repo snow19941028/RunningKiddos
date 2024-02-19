@@ -1,26 +1,20 @@
 import PropTypes from 'prop-types';
 import Chart from "react-apexcharts";
 
-function Radial({ width, series }) {
+function Radial({ series, title }) {
   const options = {
+    chart: {
+      height: 350,
+      type: 'radialBar',
+    },
     plotOptions: {
       radialBar: {
-        track: {
-          background: "#f2f2f2",
-          strokeWidth: "97%"
-        },
-        dataLabels: {
-          show: true,
-          total: {
-            show: true,
-            color: "#373d3f"
-          },
-          background: {
-            color: "#FFFFFF"
-          }
-        },
-      }
-    }
+        hollow: {
+          size: '70%',
+        }
+      },
+    },
+    labels: [title],
   };
 
   return (
@@ -29,15 +23,15 @@ function Radial({ width, series }) {
         options={options}
         series={[series]}
         type="radialBar"
-        width={width}
+        width='180'
       />
     </div>
   );
 }
 
 Radial.propTypes = {
-  width: PropTypes.number.isRequired,
-  series: PropTypes.number.isRequired
+  series: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default Radial;
